@@ -1,5 +1,6 @@
 import imgTest from "../assets/images/portal.png";
 import "../assets/css/vortex.css";
+import Swal from "sweetalert2";
 import { FormControl, TextField } from "@mui/material";
 import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -21,8 +22,19 @@ export const LoginPage = () => {
 
   const onLogin = () => {
     if (inputUser === "" || inputPass === "") {
-      alert("You must fill in the fields")
+      Swal.fire({
+        icon: 'error',
+        title: 'Hey...',
+        text: 'You must fill in the fields',
+      })
     } else {
+      Swal.fire({
+        position: 'top-end',
+        icon: 'success',
+        title: 'Loggin success',
+        showConfirmButton: false,
+        timer: 1500
+      })
       login(inputUser);
       navigate("/", {
         replace: true,
