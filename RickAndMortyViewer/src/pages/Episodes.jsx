@@ -7,6 +7,26 @@ import GET_EPISODES from "../graphql/episodes/getEpisodes.graphql";
 import "../assets/css/loading.css";
 
 export const Episodes = () => {
+  const onSaveFavoriteCard = ({ id, name, air_date, episode }) => {
+    const ruta = "episode"
+    const favoriteEpisodes = JSON.parse(
+      localStorage.getItem("favoriteEpisodes")
+    );
+    let newFavoriteEpisode;
+    if (favoriteEpisodes) {
+      newFavoriteEpisode = [
+        ...favoriteEpisodes,
+        { id, name, air_date, episode, ruta},
+      ];
+    } else {
+      newFavoriteEpisode = [{ id, name, air_date, episode, ruta }];
+    }
+    localStorage.setItem(
+      "favoriteEpisodes",
+      JSON.stringify(newFavoriteEpisode)
+    );
+  };
+
   const [searchParams, setSearchParams] = useSearchParams();
   const [page, setPage] = useState(Number(searchParams.get("page")));
   const { data, error, loading } = useQuery(GET_EPISODES(page));
@@ -43,7 +63,13 @@ export const Episodes = () => {
                     info2={episode.episode}
                     info3="episode"
                   />
-                  <FavButton />
+                  <FavButton
+                    onSave={() =>
+                      onSaveFavoriteCard({
+                        ...episode,
+                      })
+                    }
+                  />
                 </div>
               }
             </div>

@@ -7,7 +7,7 @@ import GET_CHARACTERS from "../graphql/characters/getCharacters.graphql";
 import "../assets/css/loading.css";
 
 export const Characters = () => {
-  const onSaveFavoriteCard = ({ id, name, status, specie, image }) => {
+  const onSaveFavoriteCard = ({ id, name, status, species, image }) => {
     const favoriteCharacters = JSON.parse(
       localStorage.getItem("favoriteCharacters")
     );
@@ -15,10 +15,10 @@ export const Characters = () => {
     if (favoriteCharacters) {
       newFavoriteCharacter = [
         ...favoriteCharacters,
-        { id, name, status, specie, image },
+        { id, name, status, species, image },
       ];
     } else {
-      newFavoriteCharacter = [{ id, name, status, specie, image }];
+      newFavoriteCharacter = [{ id, name, status, species, image }];
     }
     localStorage.setItem(
       "favoriteCharacters",

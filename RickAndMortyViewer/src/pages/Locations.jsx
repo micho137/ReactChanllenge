@@ -6,6 +6,26 @@ import GET_LOCATIONS from "../graphql/locations/getLocations.graphql";
 import "../assets/css/loading.css";
 
 export const Locations = () => {
+  const onSaveFavoriteCard = ({ id, name, type, dimension }) => {
+    const ruta = "location"
+    const favoriteLocations = JSON.parse(
+      localStorage.getItem("favoriteLocations")
+    );
+    let newFavoriteLocation;
+    if (favoriteLocations) {
+      newFavoriteLocation = [
+        ...favoriteLocations,
+        { id, name, type, dimension, ruta},
+      ];
+    } else {
+      newFavoriteLocation = [{ id, name, type, dimension, ruta }];
+    }
+    localStorage.setItem(
+      "favoriteLocations",
+      JSON.stringify(newFavoriteLocation)
+    );
+  };
+
   const [searchParams, setSearchParams] = useSearchParams();
   const [page, setPage] = useState(Number(searchParams.get("page")));
   const { data, error, loading } = useQuery(GET_LOCATIONS(page));
@@ -42,7 +62,13 @@ export const Locations = () => {
                     info2={location.dimension}
                     info3="location"
                   />
-                  <FavButton />
+                  <FavButton
+                    onSave={() =>
+                      onSaveFavoriteCard({
+                        ...location,
+                      })
+                    }
+                  />
                 </div>
               }
             </div>
