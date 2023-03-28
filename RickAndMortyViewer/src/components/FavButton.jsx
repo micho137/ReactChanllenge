@@ -1,15 +1,6 @@
 import { IconButton } from "@mui/material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 export const FavButton = ({ onSave }) => {
-  /* const colorIcon = () => {
-    const localValue = JSON.parse(localStorage.getItem('favoriteCharacters'))
-    console.log(localValue);
-    if(localValue && localValue.length > 0){
-      {{color:"red"}}
-    }else{
-      {{color:"gray"}}
-    }
-  }; */
   return (
     <div>
       <IconButton
@@ -25,7 +16,7 @@ export const FavButton = ({ onSave }) => {
           top: 5,
         }}
       >
-        <FavoriteIcon /* sx={{ color: `${colorIcon}` }} */sx={{color:"gray"}} />
+        <FavoriteIcon sx={{color:"red"}} />
       </IconButton>
     </div>
   );
